@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Kadınların Sesi Derneği Yönetim Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="../assets/logo.jpeg" alt="Logo">
+          KDS YÖNETİM
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-view="view-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Genel Bakış
+        </a>
+        <a href="#" class="nav-item" data-view="view-members">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Üyeler & Gönüllüler
+        </a>
+        <a href="#" class="nav-item" data-view="view-news">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Haber & Duyurular
+        </a>
+        <a href="#" class="nav-item" data-view="view-projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Projeler
+        </a>
+        <a href="#" class="nav-item" data-view="view-apps">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Başvurular
+        </a>
+        <div style="margin-top: auto; padding-top: 40px;">
+          <a href="../index.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Siteye Dön
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- VIEW: DASHBOARD -->
+      <section id="view-dashboard" class="view-section active">
+        <header class="content-header">
+          <div class="content-title">
+            <h1>İdari Genel Bakış</h1>
+            <p style="color: #7a5c38; font-size: 0.9rem;">Kadınların Sesi Derneği 2026 Yönetim Portalı</p>
+          </div>
+          <div class="user-meta">
+            <strong>Admin User</strong>
+            <span>Sorumlu Müdür</span>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <div class="stat-card"><span class="stat-label">Toplam Üye</span><div class="stat-value" id="stat-members">0</div></div>
+          <div class="stat-card"><span class="stat-label">Aktif Proje</span><div class="stat-value" id="stat-projects">0</div></div>
+          <div class="stat-card"><span class="stat-label">Yeni Başvuru</span><div class="stat-value" id="dashboard-app-count">0</div></div>
+          <div class="stat-card"><span class="stat-label">Haber & Duyuru</span><div class="stat-value" id="stat-news">0</div></div>
+        </section>
+
+        <section class="admin-card">
+          <div class="card-header">
+            <h3 class="card-title">Son Gelen Başvurular</h3>
+            <button class="btn-secondary" onclick="loadAllData()">Yenile</button>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>Ad Soyad</th><th>Telefon</th><th>Konu</th><th>Tarih</th><th>Durum</th></tr></thead>
+            <tbody id="dashboard-messages-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- VIEW: MEMBERS -->
+      <section id="view-members" class="view-section">
+        <header class="content-header">
+          <div class="content-title"><h1>Üyeler & Gönüllüler</h1><p>Üye kayıtları ve gönüllü veri tabanı.</p></div>
+          <button class="btn-admin" onclick="openModal('modal-member')">+ Yeni Üye Ekle</button>
+        </header>
+        <section class="admin-card">
+          <table class="admin-table">
+            <thead><tr><th>Ad Soyad</th><th>Tür</th><th>Kayıt Tarihi</th><th>İşlem</th></tr></thead>
+            <tbody id="members-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- VIEW: NEWS -->
+      <section id="view-news" class="view-section">
+        <header class="content-header">
+          <div class="content-title"><h1>Haber & Duyurular</h1><p>Site üzerindeki resmi bültenlerin yönetimi.</p></div>
+          <button class="btn-admin" onclick="openModal('modal-news')">+ Haber Ekle</button>
+        </header>
+        <section class="admin-card">
+          <table class="admin-table">
+            <thead><tr><th>Başlık</th><th>Kategori</th><th>Yayın Tarihi</th><th>İşlem</th></tr></thead>
+            <tbody id="news-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- VIEW: PROJECTS -->
+      <section id="view-projects" class="view-section">
+        <header class="content-header">
+          <div class="content-title"><h1>Projeler</h1><p>Yürütülen aktif ve tamamlanan projeler.</p></div>
+          <button class="btn-admin" onclick="openModal('modal-project')">+ Yeni Proje</button>
+        </header>
+        <section class="admin-card">
+          <table class="admin-table">
+            <thead><tr><th>Proje Adı</th><th>Durum</th><th>Yıl</th><th>İşlem</th></tr></thead>
+            <tbody id="projects-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- VIEW: APPLICATIONS -->
+      <section id="view-apps" class="view-section">
+        <header class="content-header">
+          <div class="content-title"><h1>Başvurular</h1><p>İletişim formundan gelen tüm mesajlar.</p></div>
+          <button class="btn-admin" onclick="loadAllData()">Listeyi Yenile</button>
+        </header>
+        <section class="admin-card">
+          <table class="admin-table">
+            <thead><tr><th>Ad Soyad</th><th>Telefon</th><th>Email</th><th>Konu</th><th>Tarih</th><th>İşlem</th></tr></thead>
+            <tbody id="all-apps-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODALS -->
+  <div id="modal-member" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header"><h3>Yeni Üye Kaydı</h3><button class="modal-close" onclick="closeModal('modal-member')">&times;</button></div>
+      <div class="modal-body">
+        <div class="admin-form-group"><label>Ad Soyad</label><input type="text" id="m-name" class="admin-input"></div>
+        <div class="admin-form-group"><label>Üyelik Türü</label><select id="m-type" class="admin-input"><option>Asil Üye</option><option>Gönüllü</option><option>Aday Üye</option></select></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secondary" onclick="closeModal('modal-member')">İptal</button><button class="btn-admin" onclick="addMember()">Kaydet</button></div>
+    </div>
+  </div>
+
+  <div id="modal-news" class="modal-overlay">
+    <div class="modal-box" style="max-width: 600px;">
+      <div class="modal-header"><h3>Haber / Duyuru Ekle</h3><button class="modal-close" onclick="closeModal('modal-news')">&times;</button></div>
+      <div class="modal-body">
+        <div class="admin-form-group"><label>Haber Başlığı</label><input type="text" id="n-title" class="admin-input"></div>
+        <div class="admin-form-group"><label>Kategori</label><select id="n-cat" class="admin-input"><option>Duyuru</option><option>Kurumsal</option><option>Etkinlik</option></select></div>
+        <div class="admin-form-group"><label>Görsel URL</label><input type="text" id="n-image" class="admin-input" placeholder="https://..."></div>
+        <div class="admin-form-group"><label>Yazar / Birim</label><input type="text" id="n-author" class="admin-input" placeholder="Basın Birimi"></div>
+        <div class="admin-form-group"><label>Haber İçeriği</label><textarea id="n-content" class="admin-input" rows="6"></textarea></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secondary" onclick="closeModal('modal-news')">İptal</button><button class="btn-admin" onclick="addNews()">Yayınla</button></div>
+    </div>
+  </div>
+
+  <div id="modal-project" class="modal-overlay">
+    <div class="modal-box" style="max-width: 600px;">
+      <div class="modal-header"><h3>Yeni Proje Tanımla</h3><button class="modal-close" onclick="closeModal('modal-project')">&times;</button></div>
+      <div class="modal-body">
+        <div class="admin-form-group"><label>Proje Adı</label><input type="text" id="p-name" class="admin-input"></div>
+        <div class="admin-form-group"><label>Durum</label><select id="p-status" class="admin-input"><option>Aktif</option><option>Tamamlandı</option></select></div>
+        <div class="admin-form-group"><label>Konum</label><input type="text" id="p-location" class="admin-input" placeholder="Ankara / Çankaya"></div>
+        <div class="admin-form-group"><label>Proje Bütçesi</label><input type="text" id="p-budget" class="admin-input" placeholder="Örn: 250.000 TL"></div>
+        <div class="admin-form-group"><label>Tahmini Süre</label><input type="text" id="p-duration" class="admin-input" placeholder="12 Ay"></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secondary" onclick="closeModal('modal-project')">İptal</button><button class="btn-admin" onclick="addProject()">Kaydet</button></div>
+    </div>
+  </div>
+
+  <script>
+    // --- Router Logic ---
+    const navItems = document.querySelectorAll('.nav-item[data-view]');
+    const views = document.querySelectorAll('.view-section');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetView = item.getAttribute('data-view');
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        views.forEach(v => {
+          v.classList.remove('active');
+          if (v.id === targetView) v.classList.add('active');
+        });
+      });
+    });
+
+    // --- Modal Logic ---
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    // --- CRUD & Data Loading ---
+    const APP_DATE = "09.04.2026";
+
+    function initData() {
+      if (!localStorage.getItem('kds_members')) {
+        localStorage.setItem('kds_members', JSON.stringify([
+          {id: 1, name: 'Merve Akın', type: 'Asil Üye', date: '12.11.2025'},
+          {id: 2, name: 'Selin Koç', type: 'Gönüllü', date: '05.01.2026'}
+        ]));
+      }
+      if (!localStorage.getItem('kds_news')) {
+        localStorage.setItem('kds_news', JSON.stringify([
+          {id: 1, title: '2026 Burs Sonuçları', cat: 'Duyuru', date: '15.03.2026'},
+          {id: 2, title: 'Yeni Ankara Ofisimiz', cat: 'Kurumsal', date: '02.02.2026'}
+        ]));
+      }
+      if (!localStorage.getItem('kds_projects')) {
+        localStorage.setItem('kds_projects', JSON.stringify([
+          {id: 1, name: 'Gezici Hukuk Birimi', status: 'Aktif', year: '2026'},
+          {id: 2, name: 'Mentorluk Ofisi', status: 'Tamamlandı', year: '2025'}
+        ]));
+      }
+      loadAllData();
+    }
+
+    function loadAllData() {
+      const members = JSON.parse(localStorage.getItem('kds_members') || '[]');
+      const news = JSON.parse(localStorage.getItem('kds_news') || '[]');
+      const projects = JSON.parse(localStorage.getItem('kds_projects') || '[]');
+      const apps = JSON.parse(localStorage.getItem('kds_messages') || '[]');
+
+      // Stats
+      document.getElementById('stat-members').textContent = members.length;
+      document.getElementById('stat-projects').textContent = projects.filter(p => p.status === 'Aktif').length;
+      document.getElementById('stat-news').textContent = news.length;
+      document.getElementById('dashboard-app-count').textContent = apps.length;
+
+      // Tables
+      renderTable('members-tbody', members, (m) => `<td>${m.name}</td><td>${m.type}</td><td>${m.date}</td><td><button class="btn-secondary btn-danger" onclick="deleteItem('kds_members', ${m.id})">Sil</button></td>`);
+      renderTable('news-tbody', news, (n) => `<td>${n.title}</td><td>${n.cat}</td><td>${n.date}</td><td><button class="btn-secondary btn-danger" onclick="deleteItem('kds_news', ${n.id})">Sil</button></td>`);
+      renderTable('projects-tbody', projects, (p) => `<td>${p.name}</td><td><span class="badge ${p.status==='Aktif'?'badge-active':'badge-pending'}">${p.status}</span></td><td>${p.year}</td><td><button class="btn-secondary btn-danger" onclick="deleteItem('kds_projects', ${p.id})">Sil</button></td>`);
+      
+      renderTable('dashboard-messages-tbody', apps.slice(0, 5), (a) => `<td>${a.name}</td><td>${a.phone}</td><td>${a.subject}</td><td>${a.date}</td><td><span class="badge badge-pending">${a.status}</span></td>`);
+      renderTable('all-apps-tbody', apps, (a) => `<td>${a.name}</td><td>${a.phone}</td><td>${a.email}</td><td>${a.subject}</td><td>${a.date}</td><td><button class="btn-secondary btn-danger" onclick="deleteItem('kds_messages', ${a.id})">Sil</button></td>`);
+    }
+
+    function renderTable(id, data, mapper) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (data.length === 0) { el.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:20px; color:#a88a68;">Kayıt bulunamadı.</td></tr>`; return; }
+      el.innerHTML = data.map(item => `<tr>${mapper(item)}</tr>`).join('');
+    }
+
+    function deleteItem(key, id) {
+      if (!confirm('Bu kaydı silmek istediğinize emin misiniz?')) return;
+      let items = JSON.parse(localStorage.getItem(key) || '[]');
+      items = items.filter(i => i.id !== id);
+      localStorage.setItem(key, JSON.stringify(items));
+      loadAllData();
+    }
+
+    function addMember() {
+      const name = document.getElementById('m-name').value;
+      const type = document.getElementById('m-type').value;
+      if (!name) return;
+      const members = JSON.parse(localStorage.getItem('kds_members') || '[]');
+      members.unshift({id: Date.now(), name, type, date: APP_DATE});
+      localStorage.setItem('kds_members', JSON.stringify(members));
+      document.getElementById('m-name').value = '';
+      closeModal('modal-member');
+      loadAllData();
+    }
+
+    function addNews() {
+      const title = document.getElementById('n-title').value;
+      const cat = document.getElementById('n-cat').value;
+      const image = document.getElementById('n-image').value;
+      const author = document.getElementById('n-author').value;
+      const content = document.getElementById('n-content').value;
+
+      if (!title || !content) { alert('Başlık ve İçerik alanları zorunludur.'); return; }
+
+      const news = JSON.parse(localStorage.getItem('kds_news') || '[]');
+      news.unshift({
+        id: Date.now(),
+        title,
+        cat,
+        image,
+        author,
+        content,
+        date: APP_DATE
+      });
+      localStorage.setItem('kds_news', JSON.stringify(news));
+      
+      // Clear inputs
+      ['n-title', 'n-image', 'n-author', 'n-content'].forEach(id => document.getElementById(id).value = '');
+      
+      closeModal('modal-news');
+      loadAllData();
+    }
+
+    function addProject() {
+      const name = document.getElementById('p-name').value;
+      const status = document.getElementById('p-status').value;
+      const location = document.getElementById('p-location').value;
+      const budget = document.getElementById('p-budget').value;
+      const duration = document.getElementById('p-duration').value;
+
+      if (!name) { alert('Proje Adı zorunludur.'); return; }
+
+      const projects = JSON.parse(localStorage.getItem('kds_projects') || '[]');
+      projects.unshift({
+        id: Date.now(),
+        name,
+        status,
+        location,
+        budget,
+        duration,
+        year: '2026'
+      });
+      localStorage.setItem('kds_projects', JSON.stringify(projects));
+      
+      // Clear inputs
+      ['p-name', 'p-location', 'p-budget', 'p-duration'].forEach(id => document.getElementById(id).value = '');
+      
+      closeModal('modal-project');
+      loadAllData();
+    }
+
+    window.addEventListener('DOMContentLoaded', initData);
+  </script>
+</body>
+</html>
