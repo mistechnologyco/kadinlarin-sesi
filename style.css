@@ -625,11 +625,66 @@ svg { width: 24px; height: 24px; flex-shrink: 0; display: inline-block; vertical
   box-shadow: var(--shadow-sm);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE SYSTEM ===== */
+@media (max-width: 1024px) {
+  section { padding: 80px 0; }
+  .hero-stats-row { gap: 40px; }
+  .about-grid, .projects-layout, .footer-grid, .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+  .activities-grid, .gallery-grid-formal, .news-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --nav-h: 70px; }
+  
+  .container { padding: 0 20px; }
+  section { padding: 60px 0; }
+
+  /* Navbar Mobile Reset */
+  .nav-container { padding-left: 20px; } /* Sağa kaydırmayı mobilde sıfırlayalım */
+  .logo-img { height: 40px; }
+  .logo-name { font-size: 1.1rem; }
+  
+  .hamburger { display: flex; cursor: pointer; }
+  .nav-links {
+    display: none; position: fixed; top: var(--nav-h); left: 0; width: 100%; height: calc(100vh - var(--nav-h));
+    background: var(--white); flex-direction: column; padding: 40px; gap: 24px; z-index: 4000;
+    border-top: 1px solid var(--border);
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  .nav-links.open { display: flex; }
+  .nav-links.open .nav-link { color: var(--brown-900) !important; text-shadow: none; font-size: 1.1rem; border-bottom: 1px solid var(--beige-100); width: 100%; padding-bottom: 10px; }
+  
+  /* Hero Mobile */
+  .hero-section { height: auto; min-height: 100vh; padding: 120px 0 60px; }
+  .hero-title { font-size: 2.8rem; }
+  .hero-stats-row { flex-wrap: wrap; gap: 20px; justify-content: space-around; }
+  .hs-divider { display: none; }
+  .hero-stat { width: 45%; padding: 15px; }
+
+  /* About Mobile */
+  .about-badge { position: relative; bottom: 0; right: 0; margin-top: -40px; width: 80%; margin-left: auto; padding: 20px; }
+  .about-img-wrap img { height: 350px; }
+
+  /* Contact Mobile */
+  .contact-form-col { padding: 30px 20px; }
+  .contact-form-col h4 { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .section-title { font-size: 2.2rem; }
+  .hero-title { font-size: 2.4rem; }
+  .activities-grid, .gallery-grid-formal, .news-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; gap: 12px; }
+  .btn { width: 100%; justify-content: center; }
+  .hero-stat { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .footer-bottom-row { text-align: center; justify-content: center; }
+}
+
 /* ===== UTILITIES ===== */
 .back-to-top {
-  position: fixed; bottom: 30px; right: 30px; 
-  width: 50px; height: 50px; background: var(--brown-800); color: white;
+  position: fixed; bottom: 20px; right: 20px; 
+  width: 44px; height: 44px; background: var(--brown-800); color: white;
   display: flex; align-items: center; justify-content: center;
   opacity: 0; visibility: hidden; transition: var(--tr); z-index: 5000;
   border-radius: var(--r-sm); border: 1px solid var(--gold);
@@ -643,28 +698,4 @@ svg { width: 24px; height: 24px; flex-shrink: 0; display: inline-block; vertical
 }
 .lightbox.open { display: flex; }
 .lightbox-img { max-width: 90%; max-height: 80%; object-fit: contain; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-.lightbox-close { position: absolute; top: 40px; right: 40px; font-size: 2rem; color: white; cursor: pointer; }
-
-@media (max-width: 1024px) {
-  .hero-stats-row { gap: 40px; }
-  .about-grid, .projects-layout, .footer-grid { grid-template-columns: 1fr; gap: 60px; }
-  .activities-grid, .gallery-grid-formal { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 768px) {
-  :root { --nav-h: 70px; }
-  .hamburger { display: flex; }
-  .nav-links {
-    display: none; position: fixed; top: var(--nav-h); left: 0; width: 100%; height: calc(100vh - var(--nav-h));
-    background: var(--white); flex-direction: column; padding: 40px; gap: 24px; z-index: 4000;
-  }
-  .nav-links.open { display: flex; }
-  .nav-links.open .nav-link { color: var(--brown-900) !important; text-shadow: none; font-size: 1.2rem; }
-  
-  .hero-stats-row { flex-wrap: wrap; }
-  .hs-divider { display: none; }
-  .hero-stat { width: 50%; padding: 10px; }
-  
-  .about-badge { right: 20px; bottom: 20px; padding: 24px; }
-  .about-img-wrap img { height: 400px; }
-}
+.lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 1.8rem; color: white; cursor: pointer; }
